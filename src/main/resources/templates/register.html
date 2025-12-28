@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>注册</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<h2>用户注册</h2>
+
+<div th:if="${error}" class="error" th:text="${error}">错误信息</div>
+
+<form th:action="@{/auth/register}" method="post">
+    <input type="text" name="username" placeholder="用户名" required>
+    <input type="password" name="password" placeholder="密码" required>
+    <input type="text" name="captcha" placeholder="验证码" required>
+    <img id="captchaImg" th:src="@{/captcha}" alt="点击刷新" style="cursor:pointer">
+    <button type="submit">注册</button>
+</form>
+
+<p>已有账号？ <a th:href="@{/auth/login}">登录</a></p>
+
+<script th:src="@{/main.js}"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>论坛首页</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<h2>论坛首页</h2>
+
+<div th:if="${session.user != null}">
+    <span th:text="'欢迎, ' + ${session.user.username}">用户名</span> |
+    <a th:href="@{/auth/logout}">退出</a>
+
+    <div class="actions">
+        <form th:action="@{/messages/create}" method="post">
+            <input type="text" name="title" placeholder="帖子标题" required>
+            <textarea name="content" placeholder="帖子内容" required></textarea>
+            <button type="submit">发帖</button>
+        </form>
+    </div>
+</div>
+
+<table>
+    <thead>
+    <tr><th>标题</th><th>作者</th><th>时间</th><th>操作</th></tr>
+    </thead>
+    <tbody>
+    <tr th:each="msg : ${messages}">
+        <td><a th:href="@{/messages/detail/{id}(id=${msg.id})}" th:text="${msg.title}">标题</a></td>
+        <td th:text="${msg.sender.username}">作者</td>
+        <td th:text="${#temporals.format(msg.datetime, 'yyyy-MM-dd HH:mm')}">时间</td>
+        <td>
+            <form th:if="${session.user != null && session.user.id == msg.sender.id}"
+                  th:action="@{/messages/delete}" method="post" style="display:inline">
+                <input type="hidden" name="messageID" th:value="${msg.id}">
+                <button type="submit">删除</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="pagination">
+    <span th:each="i : ${#numbers.sequence(1, totalPages)}">
+        <strong th:if="${i == currentPage}" th:text="${i}">1</strong>
+        <a th:if="${i != currentPage}" th:href="@{/messages(page=${i})}" th:text="${i}">2</a>
+    </span>
+</div>
+
+<script th:src="@{/main.js}"></script>
+</body>
+</html>

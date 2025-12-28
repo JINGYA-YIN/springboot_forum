@@ -1,0 +1,170 @@
+/* 全局 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f6f8;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+h2, h3, h4 {
+    color: #333;
+}
+
+main {
+    flex: 1;
+    padding: 20px 40px;
+}
+
+/* 表单 */
+form {
+    max-width: 600px;
+    margin: 10px 0;
+}
+
+input, textarea, button {
+    width: 100%;
+    margin: 5px 0;
+    padding: 10px;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button {
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* 表格 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border-radius: 5px;
+}
+
+th, td {
+    border-bottom: 1px solid #eee;
+    padding: 12px 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f0f0f0;
+}
+
+/* 页内操作区域 */
+.actions {
+    margin: 10px 0;
+}
+
+/* 分页 */
+.pagination {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.pagination a, .pagination strong {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.pagination a {
+    background-color: #e0e0e0;
+    color: #333;
+    transition: background 0.2s;
+}
+
+.pagination a:hover {
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+.pagination strong {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* 错误提示 */
+.error {
+    color: red;
+    margin-bottom: 10px;
+}
+
+/* 验证码图片 */
+img {
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+/* 回复样式 */
+.reply {
+    margin-left: 20px;
+    border-left: 2px solid #eee;
+    padding-left: 10px;
+    margin-top: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.reply-content {
+    white-space: pre-wrap;
+    margin-bottom: 5px;
+}
+
+/* 子回复缩进 */
+.child-replies {
+    margin-left: 20px;
+    border-left: 1px solid #ddd;
+    padding-left: 10px;
+}
+
+/* 发帖标题和内容框 */
+.post-field {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+textarea.post-field {
+    height: 100px;
+}
+
+.page-footer {
+    margin-top: 30px;
+    text-align: center;
+    color: #888;
+    font-size: 12px;
+}

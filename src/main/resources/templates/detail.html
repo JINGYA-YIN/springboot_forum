@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${message.title}">帖子详情</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<p><a th:href="@{/messages}">« 返回首页</a></p>
+
+<h2 th:text="${message.title}">标题</h2>
+<p th:text="${message.content}">内容</p>
+<p>
+    作者: <span th:text="${message.sender.username}">作者</span> |
+    时间: <span th:text="${#temporals.format(message.datetime, 'yyyy-MM-dd HH:mm')}">时间</span>
+</p>
+
+<form th:if="${session.user != null && session.user.id == message.sender.id}"
+      th:action="@{/messages/delete}" method="post">
+    <input type="hidden" name="messageID" th:value="${message.id}">
+    <button type="submit">删除帖子</button>
+</form>
+
+<hr>
+
+<h3>回复</h3>
+
+<div th:fragment="replyNode(replies)">
+    <div th:each="r : ${replies}" class="reply" style="margin-bottom: 10px;">
+        <p class="reply-content" th:text="${r.content}">内容</p>
+        <small>
+            作者: [[${r.sender.username}]] |
+            时间: [[${#temporals.format(r.datetime, 'yyyy-MM-dd HH:mm')}]]
+        </small>
+
+        <form th:if="${session.user != null && session.user.id == r.sender.id}"
+              th:action="@{/reply/delete}" method="post" style="display:inline">
+            <input type="hidden" name="messageID" th:value="${r.messageID}">
+            <input type="hidden" name="replyID" th:value="${r.id}">
+            <button type="submit">删除</button>
+        </form>
+
+        <form th:if="${session.user != null}" th:action="@{/reply/add}" method="post">
+            <input type="hidden" name="messageID" th:value="${r.messageID}">
+            <input type="hidden" name="parentReplyID" th:value="${r.id}">
+            <textarea name="content" th:placeholder="'回复 ' + ${r.sender.username}" required></textarea>
+            <button type="submit">回复</button>
+        </form>
+
+        <div class="child-replies" th:if="${not #lists.isEmpty(r.childReplies)}"
+             style="margin-left: 30px; border-left: 1px solid #ddd; padding-left: 10px;">
+            <div th:replace="this :: replyNode(${r.childReplies})"></div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="this :: replyNode(${message.rootReplies})"></div>
+
+<hr>
+<div th:if="${session.user != null}">
+    <h4>回复此帖</h4>
+    <form th:action="@{/reply/add}" method="post">
+        <input type="hidden" name="messageID" th:value="${message.id}">
+        <textarea name="content" placeholder="回复内容" required></textarea>
+        <button type="submit">发送</button>
+    </form>
+</div>
+
+<script th:src="@{/main.js}"></script>
+</body>
+</html>
